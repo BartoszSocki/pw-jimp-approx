@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
+/* works fine */
 matrix_t *make_matrix(int rn, int cn)
 {
 	matrix_t *new_mat = malloc(sizeof *new_mat);
@@ -24,26 +25,33 @@ void free_matrix(matrix_t * m)
 	free(m);
 }
 
+/* works fine */
+/* memory leak fix */
 void put_entry_matrix(matrix_t * m, int i, int j, double val)
 {
-	if (i >= 0 && i < m->rn && j >= 0 && j <= m->cn)
+	if (i >= 0 && i < m->rn && j >= 0 && j < m->cn)
 		m->e[i * m->cn + j] = val;
 }
 
+/* works fine */
+/* memory leak fix */
 void add_to_entry_matrix(matrix_t * m, int i, int j, double val)
 {
-	if (i >= 0 && i < m->rn && j >= 0 && j <= m->cn)
+	if (i >= 0 && i < m->rn && j >= 0 && j < m->cn)
 		m->e[i * m->cn + j] += val;
 }
 
+/* works fine */
+/* memory leak fix */
 double get_entry_matrix(matrix_t * m, int i, int j)
 {
-	if (i >= 0 && i < m->rn && j >= 0 && j <= m->cn)
+	if (i >= 0 && i < m->rn && j >= 0 && j < m->cn)
 		return m->e[i * m->cn + j];
 	else
 		return -999;
 }
 
+/* works fine */
 matrix_t *read_matrix(FILE * in)
 {
 	int rn, cn;
@@ -64,6 +72,7 @@ matrix_t *read_matrix(FILE * in)
 	return new_mat;
 }
 
+/* works fine */
 void write_matrix(matrix_t * m, FILE * out)
 {
 	int i, j;
@@ -80,6 +89,7 @@ void write_matrix(matrix_t * m, FILE * out)
 	}
 }
 
+/* works fine */
 matrix_t *copy_matrix(matrix_t * s)
 {
 	matrix_t *d = NULL;
@@ -87,30 +97,27 @@ matrix_t *copy_matrix(matrix_t * s)
 		d = make_matrix(s->rn, s->cn);
 	if (d != NULL) {
 		memcpy(d->e, s->e, s->rn * s->cn * sizeof *s->e);
-		/* int i;
-		   for( i= 0; i < s->rn*s->cn; i++ )
-		   *(d->e+i)= *(s->e+i);
-		 */
-		/* d->rn= s->rn; d->cn= s->cn; done in make_matrix */
 	}
 	return d;
 }
 
+/* works fine */
+/* memory leak fix */
 matrix_t *transpose_matrix(matrix_t * s)
 {
 	matrix_t *d = NULL;
 	if (s != NULL)
-		d = make_matrix(s->rn, s->cn);
+		d = make_matrix(s->cn, s->rn);
 	if (d != NULL) {
 		int i, j;
 		for (i = 0; i < s->rn; i++)
 			for (j = 0; j < s->cn; j++)
 				*(d->e + j * d->cn + i) = *(s->e + i * s->cn + j);
-		/* d->rn= s->cn; d->cn= s->rn; done in make_matrix */
 	}
 	return d;
 }
 
+/* works fine */
 void xchg_rows(matrix_t * m, int i, int j)
 {
 	if (m != NULL && i >= 0 && i < m->rn && j >= 0 && j < m->rn) {
@@ -124,6 +131,7 @@ void xchg_rows(matrix_t * m, int i, int j)
 	}
 }
 
+/* works fine */
 void xchg_cols(matrix_t * m, int i, int j)
 {
 	if (m != NULL && i >= 0 && i < m->cn && j >= 0 && j < m->cn) {
@@ -137,6 +145,7 @@ void xchg_cols(matrix_t * m, int i, int j)
 	}
 }
 
+/* works fine */
 matrix_t *mull_matrix(matrix_t * a, matrix_t * b)
 {
 	if (a == NULL || b == NULL || a->cn != b->rn)
@@ -158,6 +167,7 @@ matrix_t *mull_matrix(matrix_t * a, matrix_t * b)
 	}
 }
 
+/* tworzenie macierzy trójkątnej */
 matrix_t *ge_matrix(matrix_t * a)
 {
 	matrix_t *c = copy_matrix(a);
@@ -167,8 +177,7 @@ matrix_t *ge_matrix(matrix_t * a)
 		int rn = c->rn;
 		double *e = c->e;
 		for (k = 0; k < rn - 1; k++) {	/* eliminujemy (zerujemy) kolumnę nr k */
-			for (i = k + 1; i < rn; i++) {	/* pętla po kolejnych
-							   wierszach poniżej diagonalii k,k */
+			for (i = k + 1; i < rn; i++) {	/* pętla po kolejnych wierszach poniżej diagonalii k,k */
 				double d = *(e + i * cn + k) / *(e + k * cn + k);
 				for (j = k; j < cn; j++)
 					*(e + i * cn + j) -= d * *(e + k * cn + j);
@@ -189,8 +198,7 @@ int bs_matrix(matrix_t * a)
 		for (k = rn; k < cn; k++) {	/* pętla po prawych stronach */
 			for (r = rn - 1; r >= 0; r--) {	/* petla po niewiadomych */
 				double rhs = *(e + r * cn + k);	/* wartość prawej strony */
-				for (c = rn - 1; c > r; c--)	/* odejmujemy wartości już wyznaczonych niewiadomych *
-								   pomnożone przed odpowiednie współczynniki */
+				for (c = rn - 1; c > r; c--)	/* odejmujemy wartości już wyznaczonych niewiadomych pomnożone przed odpowiednie współczynniki */
 					rhs -= *(e + r * cn + c) * *(e + c * cn + k);
 				*(e + r * cn + k) = rhs / *(e + r * cn + r);	/* nowa wartość to prawa strona / el. diagonalny */
 			}

@@ -24,8 +24,7 @@ matrix_t *pivot_ge_matrix(matrix_t * a, int *row_per)
 				row_per[k] = row_per[piv];
 				row_per[piv] = tmp;
 			}
-			for (i = k + 1; i < rn; i++) {	/* pętla po kolejnych
-							   wierszach poniżej diagonalii k,k */
+			for (i = k + 1; i < rn; i++) {	/* pętla po kolejnych wierszach poniżej diagonalii k,k */
 				double d = *(e + i * cn + k) / *(e + k * cn + k);
 				for (j = k; j < cn; j++)
 					*(e + i * cn + j) -= d * *(e + k * cn + j);
@@ -49,8 +48,7 @@ void pivot_ge_in_situ_matrix(matrix_t * c)
 		if (piv != k) {	/* jeśli diag. nie jest pivtem - wymień wiersze */
 			xchg_rows(c, piv, k);
 		}
-		for (i = k + 1; i < rn; i++) {	/* pętla po kolejnych
-						   wierszach poniżej diagonalii k,k */
+		for (i = k + 1; i < rn; i++) {	/* pętla po kolejnych wierszach poniżej diagonalii k,k */
 			double d = *(e + i * cn + k) / *(e + k * cn + k);
 			for (j = k; j < cn; j++)
 				*(e + i * cn + j) -= d * *(e + k * cn + j);
@@ -81,8 +79,7 @@ matrix_t *symm_pivot_ge_matrix(matrix_t * a, int *row_per)
 				row_per[k] = row_per[piv];
 				row_per[piv] = tmp;
 			}
-			for (i = k + 1; i < rn; i++) {	/* pętla po kolejnych
-							   wierszach poniżej diagonalii k,k */
+			for (i = k + 1; i < rn; i++) {	/* pętla po kolejnych wierszach poniżej diagonalii k,k */
 				double d = *(e + i * cn + k) / *(e + k * cn + k);
 				for (j = k; j < cn; j++)
 					*(e + i * cn + j) -= d * *(e + k * cn + j);
