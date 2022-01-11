@@ -66,8 +66,32 @@ int main() {
 	write_matrix(m2, stdout);
 
 	puts("bs_matrix:");
-	write_matrix(m2, stdout);
-	bs_matrix(m2);
-	write_matrix(m2, stdout);
+	matrix_t* m7 = make_matrix(2, 3);
+	put_entry_matrix(m7, 0, 0, 2);
+	put_entry_matrix(m7, 0, 1, 3);
+	put_entry_matrix(m7, 0, 2, 10);
+	put_entry_matrix(m7, 1, 0, 0);
+	put_entry_matrix(m7, 1, 1, 2);
+	put_entry_matrix(m7, 1, 2, 3);
+	
+	write_matrix(m7, stdout);
+	bs_matrix(m7);
+	write_matrix(m7, stdout);
+
+	puts("pivot_ge_matrix:");
+	int* row_iter = malloc(sizeof(*row_iter) * 2);
+	row_iter[0] = 0;
+	row_iter[1] = 1;
+	matrix_t* m8 = make_matrix(2, 3);
+	put_entry_matrix(m8, 0, 0, 2);
+	put_entry_matrix(m8, 0, 1, 3);
+	put_entry_matrix(m8, 0, 2, 10);
+	put_entry_matrix(m8, 1, 0, 0);
+	put_entry_matrix(m8, 1, 1, 2);
+	put_entry_matrix(m8, 1, 2, 3);
+
+	write_matrix(m8, stdout);
+	pivot_ge_matrix(m8, row_iter);
+	write_matrix(m8, stdout);
 }
 

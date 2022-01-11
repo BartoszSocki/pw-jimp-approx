@@ -167,7 +167,8 @@ matrix_t *mull_matrix(matrix_t * a, matrix_t * b)
 	}
 }
 
-/* tworzenie macierzy trójkątnej */
+/* eliminacja gaussa */
+/* works fine */
 matrix_t *ge_matrix(matrix_t * a)
 {
 	matrix_t *c = copy_matrix(a);
@@ -187,6 +188,8 @@ matrix_t *ge_matrix(matrix_t * a)
 	return c;
 }
 
+/* podstawienie wsteczne */
+/* possible memory leaks */
 int bs_matrix(matrix_t * a)
 {
 	if (a != NULL) {

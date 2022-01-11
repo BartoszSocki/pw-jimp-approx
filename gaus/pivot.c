@@ -19,12 +19,14 @@ matrix_t *pivot_ge_matrix(matrix_t * a, int *row_per)
 					piv = i;
 			if (piv != k) {	/* jeśli diag. nie jest pivtem - wymień wiersze */
 				int tmp;
+				/* change only rows */
 				xchg_rows(c, piv, k);
 				tmp = row_per[k];
 				row_per[k] = row_per[piv];
 				row_per[piv] = tmp;
 			}
 			for (i = k + 1; i < rn; i++) {	/* pętla po kolejnych wierszach poniżej diagonalii k,k */
+				/* tutaj chyba powinno być piv zamiast k */
 				double d = *(e + i * cn + k) / *(e + k * cn + k);
 				for (j = k; j < cn; j++)
 					*(e + i * cn + j) -= d * *(e + k * cn + j);
@@ -73,6 +75,7 @@ matrix_t *symm_pivot_ge_matrix(matrix_t * a, int *row_per)
 					piv = i;
 			if (piv != k) {	/* jeśli diag. nie jest pivtem - wymień wiersze */
 				int tmp;
+				/* change rows and cols */
 				xchg_rows(c, piv, k);
 				xchg_cols(c, piv, k);
 				tmp = row_per[k];
