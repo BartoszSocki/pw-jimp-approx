@@ -1,6 +1,8 @@
 #include "piv_ge_solver.h"
 #include <stdlib.h>
 
+/* this function solves equations */
+/* return zero when everything goes fine */
 int piv_ge_solver(matrix_t * eqs)
 {
 	if (eqs != NULL) {
