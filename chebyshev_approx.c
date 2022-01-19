@@ -25,17 +25,33 @@ double U (int n, double x){ //chebyshev polynomial of second kind
 }
 
 double dT(int n, double x){
+	if (n==0)
+		return 0;
+	else if (n==1)
+		return 1;
 	return n*U(n-1, x);
 }
 
 double dU(int n, double x){
+	if (n==0)
+		return 0;
+	else if (n==1)
+		return 2;
 	return ((n+1)*T(n+1, x) - x*U(n, x))/(x*x - 1);
 }
 double d2T(int n, double x) {
+	if (n==0)
+		return 0;
+	else if (n==1)
+		return 0;
 	return n*((n*T(n,x)-x*U(n-1, x))/(x*x - 1));
 }
 
 double d3T(int n,  double x) {
+	if (n==0)
+		return 0;
+	else if (n==1)
+		return 0;
 	return n*(((n*dT(n,x)-x*dU(n-1, x)-U(n-1, x))*(x*x-1) - (n*T(n, x) - x*U(n-1, x))*2*x)/(x*x*x*x - 2*x*x + 1)); 
 }
 double xfi(double a, double b, int n, int i, FILE * out)
