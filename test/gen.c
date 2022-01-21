@@ -24,9 +24,32 @@ double fun4(double x){
 }
 
 double fun5(double x){
+	double r5 = ((double)rand() - RAND_MAX/2.0)/RAND_MAX/10; // +- 5%
+	return (1+r5)*x;
+}
+
+double fun6(double x){
+	return x*x;
+}
+
+double fun7(double x){
+	return 2;
+}
+
+double fun8(double x){
+	double r10 = ((double)rand() - RAND_MAX/2.0)/RAND_MAX/5; // +-10%
+	return 1.0/x;
+}
+
+double fun9 (double x){
+	return x*x+2*x+13;
+}
+
+double fun10(double x){
 	double r25 = ((double)rand() - RAND_MAX/2.0)/RAND_MAX/2; // +- 25%
 	return (1+r25)*cos(5*x);
 }
+
 
 int main( int argc, char **argv ) {
 	int n = argc > 1 ? atoi( argv[1] ) : 100; //number of points
@@ -47,8 +70,18 @@ int main( int argc, char **argv ) {
 			fprintf( out, "%g %g\n", a+i*dx, fun3(a+i*dx) );
 		else if (f == 4)
 			fprintf( out, "%g %g\n", a+i*dx, fun4(a+i*dx) );
-		else
-			fprintf( out, "%g %g\n", a+i*dx, fun5(a+i*dx) );
+		else if (f == 5)
+                        fprintf( out, "%g %g\n", a+i*dx, fun5(a+i*dx) );
+		else if (f == 6)
+                        fprintf( out, "%g %g\n", a+i*dx, fun6(a+i*dx) );
+		else if (f == 7)
+                        fprintf( out, "%g %g\n", a+i*dx, fun7(a+i*dx) );
+		else if (f == 8)
+                        fprintf( out, "%g %g\n", a+i*dx, fun8(a+i*dx) );
+		else if (f == 9)
+                        fprintf( out, "%g %g\n", a+i*dx, fun9(a+i*dx) );
+		else 
+			fprintf( out, "%g %g\n", a+i*dx, fun10(a+i*dx) );
 
 	}
 
