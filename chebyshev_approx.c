@@ -54,25 +54,6 @@ double d3T(int n,  double x) {
 		return 0;
 	return n*(((n*dT(n,x)-x*dU(n-1, x)-U(n-1, x))*(x*x-1) - (n*T(n, x) - x*U(n-1, x))*2*x)/(x*x*x*x - 2*x*x + 1)); 
 }
-double xfi(double a, double b, int n, int i, FILE * out)
-{
-	double h = (b - a) / (n - 1);
-	double h3 = h * h * h;
-	int hi[5] = { i - 2, i - 1, i, i + 1, i + 2 };
-	double hx[5];
-	int j;
-
-	for (j = 0; j < 5; j++)
-		hx[j] = a + h * hi[j];
-
-	fprintf(out, "# nb=%d, i=%d: hi=[", n, i);
-	for (j = 0; j < 5; j++)
-		fprintf(out, " %d", hi[j]);
-	fprintf(out, "] hx=[");
-	for (j = 0; j < 5; j++)
-		fprintf(out, " %g", hx[j]);
-	fprintf(out, "]\n");
-}
 
 void make_spl(points_t * pts, spline_t * spl) {
   matrix_t *eqs = NULL;
