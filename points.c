@@ -3,7 +3,7 @@
 
 static int realloc_pts_failed(points_t * pts, int size)
 {
-	return (pts->x = realloc(pts->x, size * sizeof *pts->x)) == NULL || (pts->y = realloc(pts->y, size * sizeof *pts->y)) == NULL:
+	return (pts->x = realloc(pts->x, size * sizeof *pts->x)) == NULL || (pts->y = realloc(pts->y, size * sizeof *pts->y)) == NULL;
 }
 
 int read_pts_failed(FILE * inf, points_t * pts)
